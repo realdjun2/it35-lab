@@ -1,5 +1,5 @@
 import { 
-  IonButton,
+    IonButton,
     IonButtons,
       IonContent, 
       IonHeader, 
@@ -12,20 +12,14 @@ import {
       IonRouterOutlet, 
       IonSplitPane, 
       IonTitle, 
-      IonToolbar
-       
-  } from '@ionic/react';
+      IonToolbar 
+  } from '@ionic/react'
   import {homeOutline, logOutOutline, rocketOutline} from 'ionicons/icons';
-  import { Redirect, Route } from 'react-router';
-  import Home from './Home';
-  import About from './About';
-  import Details from './Details';
-  
-  const Menu: React.FC = () => {
-    const path = [
-      {name:'Home', url: '/it35-lab/app/Home', icon: homeOutline},
-      {name:'About', url: '/it35-lab/app/About', icon: rocketOutline},
-  ]
+import { Redirect, Route } from 'react-router';
+import Home from './Home';
+import About from './About';
+import Details from './Details';
+
   const Menu: React.FC = () => {
     const path = [
         {name:'Home', url: '/it35-lab/app/home', icon: homeOutline},
