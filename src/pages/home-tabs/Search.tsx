@@ -20,7 +20,7 @@ import {
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-        <div
+          <div
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -31,6 +31,7 @@ import {
             Search
             
           </div>
+  
         </IonContent>
       </IonPage>
     );

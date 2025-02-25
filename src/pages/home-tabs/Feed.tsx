@@ -20,7 +20,7 @@ import {
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-        <div
+          <div
             style={{
               display: 'flex',
               alignItems: 'center',
