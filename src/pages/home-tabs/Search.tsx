@@ -29,6 +29,7 @@ import {
             }}
           >
             Search
+            
           </div>
         </IonContent>
       </IonPage>

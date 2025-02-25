@@ -29,6 +29,7 @@ import {
             }}
           >
             Feed
+            
           </div>
         </IonContent>
       </IonPage>
