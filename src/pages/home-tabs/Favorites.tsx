@@ -25,6 +25,7 @@ const Favorites: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <IonCard>
+          <img alt="Pizza" src="https://source.unsplash.com/400x300/?pizza" />
           <IonCardHeader>
             <IonCardTitle>Pizza</IonCardTitle>
           </IonCardHeader>
@@ -32,6 +33,7 @@ const Favorites: React.FC = () => {
         </IonCard>
 
         <IonCard>
+          <img alt="Sushi" src="https://source.unsplash.com/400x300/?sushi" />
           <IonCardHeader>
             <IonCardTitle>Sushi</IonCardTitle>
           </IonCardHeader>
@@ -39,6 +41,7 @@ const Favorites: React.FC = () => {
         </IonCard>
 
         <IonCard>
+          <img alt="Burger" src="https://source.unsplash.com/400x300/?burger" />
           <IonCardHeader>
             <IonCardTitle>Burger</IonCardTitle>
           </IonCardHeader>
@@ -46,6 +49,7 @@ const Favorites: React.FC = () => {
         </IonCard>
 
         <IonCard>
+          <img alt="Pasta" src="https://source.unsplash.com/400x300/?pasta" />
           <IonCardHeader>
             <IonCardTitle>Pasta</IonCardTitle>
           </IonCardHeader>
