@@ -18,18 +18,6 @@ const sdgs = [
   { id: 3, title: "Good Health & Well-being", desc: "Ensure healthy lives and promote well-being for all ages." },
   { id: 4, title: "Quality Education", desc: "Ensure inclusive and equitable quality education." },
   { id: 5, title: "Gender Equality", desc: "Achieve gender equality and empower all women and girls." },
-  { id: 6, title: "Clean Water & Sanitation", desc: "Ensure availability and sustainable management of water." },
-  { id: 7, title: "Affordable & Clean Energy", desc: "Ensure access to affordable, reliable, sustainable energy." },
-  { id: 8, title: "Decent Work & Economic Growth", desc: "Promote sustained, inclusive, and sustainable economic growth." },
-  { id: 9, title: "Industry, Innovation & Infrastructure", desc: "Build resilient infrastructure and promote innovation." },
-  { id: 10, title: "Reduced Inequalities", desc: "Reduce inequality within and among countries." },
-  { id: 11, title: "Sustainable Cities & Communities", desc: "Make cities and human settlements inclusive and sustainable." },
-  { id: 12, title: "Responsible Consumption & Production", desc: "Ensure sustainable consumption and production patterns." },
-  { id: 13, title: "Climate Action", desc: "Take urgent action to combat climate change." },
-  { id: 14, title: "Life Below Water", desc: "Conserve and sustainably use oceans and marine resources." },
-  { id: 15, title: "Life on Land", desc: "Protect, restore, and promote sustainable ecosystems." },
-  { id: 16, title: "Peace, Justice & Strong Institutions", desc: "Promote peaceful and inclusive societies." },
-  { id: 17, title: "Partnerships for the Goals", desc: "Strengthen global partnerships for sustainable development." },
 ];
 
 const Feed: React.FC = () => {
