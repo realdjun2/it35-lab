@@ -1,11 +1,18 @@
 import { 
+  IonButton,
     IonButtons,
       IonContent, 
       IonHeader, 
+      IonIcon, 
+      IonLabel, 
       IonMenuButton, 
       IonPage, 
+      IonRouterOutlet, 
+      IonTabBar, 
+      IonTabButton, 
+      IonTabs, 
       IonTitle, 
-      IonToolbar 
+      IonToolbar  
   } from '@ionic/react';
   
   const Home: React.FC = () => {
