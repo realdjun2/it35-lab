@@ -8,7 +8,9 @@ import {
   IonInputPasswordToggle,  
   IonPage,  
   IonToast,  
-  useIonRouter
+  useIonRouter,
+  IonCheckbox,
+  IonLabel
 } from '@ionic/react';
 import { logoIonic } from 'ionicons/icons';
 import { useState } from 'react';
@@ -33,8 +35,15 @@ const Login: React.FC = () => {
   const [alertMessage, setAlertMessage] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [isRobotChecked, setIsRobotChecked] = useState(false); // State for "I'm not a robot"
 
   const doLogin = async () => {
+    if (!isRobotChecked) {
+      setAlertMessage("Please confirm you're not a robot.");
+      setShowAlert(true);
+      return;
+    }
+
     const { error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
@@ -48,34 +57,17 @@ const Login: React.FC = () => {
       navigation.push('/it35-lab/app', 'forward', 'replace');
     }, 300);
   };
-  
+
   return (
     <IonPage>
       <IonContent className='ion-padding'>
         <div style={{
           display: 'flex',
-          flexDirection:'column',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          marginTop:'25%'
+          marginTop: '25%'
         }}>
-          <IonAvatar
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '150px',
-              height: '150px',
-              borderRadius: '50%', 
-              overflow: 'hidden' 
-            }}
-          >
-            <IonIcon 
-              icon={logoIonic}
-              color='primary'
-              style={{ fontSize: '120px', color: '#6c757d' }} 
-            />
-          </IonAvatar>
           <h1 style={{
             display: 'flex',
             alignItems: 'center',
@@ -90,7 +82,7 @@ const Login: React.FC = () => {
             value={email}
             onIonChange={e => setEmail(e.detail.value!)}
           />
-          <IonInput style={{ marginTop:'10px' }}      
+          <IonInput style={{ marginTop: '10px' }}      
             fill="outline"
             type="password"
             placeholder="Password"
@@ -99,6 +91,15 @@ const Login: React.FC = () => {
           >
             <IonInputPasswordToggle slot="end"></IonInputPasswordToggle>
           </IonInput>
+
+          {/* "I'm not a robot" checkbox */}
+          <div style={{ marginTop: '15px', display: 'flex', alignItems: 'center' }}>
+            <IonCheckbox 
+              checked={isRobotChecked} 
+              onIonChange={e => setIsRobotChecked(e.detail.checked)} 
+            />
+            <IonLabel style={{ marginLeft: '8px' }}>I'm not a robot</IonLabel>
+          </div>
         </div>
         <IonButton onClick={doLogin} expand="full" shape='round'>
           Login
