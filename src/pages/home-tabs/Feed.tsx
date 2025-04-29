@@ -1,38 +1,42 @@
-import {
+import React from 'react';
+import { 
   IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonContent,
-  IonHeader,
-  IonMenuButton,
-  IonPage,
-  IonTitle,
+  IonContent, 
+  IonHeader, 
+  IonMenuButton, 
+  IonPage, 
+  IonTitle, 
   IonToolbar,
+  IonList,
+  IonItem,
+  IonThumbnail,
+  IonLabel,
+  IonImg
 } from '@ionic/react';
 
-const sdgs = [
-  { id: 1, title: "No Poverty", img: "poverty.jpg", desc: "End poverty in all its forms everywhere." },
-  { id: 2, title: "Zero Hunger", img: "hunger.jpg", desc: "End hunger, achieve food security, and improve nutrition." },
-  { id: 3, title: "Good Health & Well-being", img: "health.jpg", desc: "Ensure healthy lives and promote well-being for all ages." },
-  { id: 4, title: "Quality Education", img: "education.jpg", desc: "Ensure inclusive and equitable quality education." },
-  { id: 5, title: "Gender Equality", img: "gender.jpg", desc: "Achieve gender equality and empower all women and girls." },
-  { id: 6, title: "Clean Water & Sanitation", img: "water.jpg", desc: "Ensure availability and sustainable management of water." },
-  { id: 7, title: "Affordable & Clean Energy", img: "energy.jpg", desc: "Ensure access to affordable, reliable, sustainable energy." },
-  { id: 8, title: "Decent Work & Economic Growth", img: "work.jpg", desc: "Promote sustained, inclusive, and sustainable economic growth." },
-  { id: 9, title: "Industry, Innovation & Infrastructure", img: "industry.jpg", desc: "Build resilient infrastructure and promote innovation." },
-  { id: 10, title: "Reduced Inequalities", img: "inequality.jpg", desc: "Reduce inequality within and among countries." },
-  { id: 11, title: "Sustainable Cities & Communities", img: "cities.jpg", desc: "Make cities and human settlements inclusive and sustainable." },
-  { id: 12, title: "Responsible Consumption & Production", img: "consumption.jpg", desc: "Ensure sustainable consumption and production patterns." },
-  { id: 13, title: "Climate Action", img: "climate.jpg", desc: "Take urgent action to combat climate change." },
-  { id: 14, title: "Life Below Water", img: "waterlife.jpg", desc: "Conserve and sustainably use oceans and marine resources." },
-  { id: 15, title: "Life on Land", img: "landlife.jpg", desc: "Protect, restore, and promote sustainable ecosystems." },
-  { id: 16, title: "Peace, Justice & Strong Institutions", img: "justice.jpg", desc: "Promote peaceful and inclusive societies." },
-  { id: 17, title: "Partnerships for the Goals", img: "partnership.jpg", desc: "Strengthen global partnerships for sustainable development." },
-];
-
 const Feed: React.FC = () => {
+  // Dummy data for the feed
+  const feedItems = [
+    {
+      id: 1,
+      title: 'Post 1',
+      description: 'Updated facebook cover photo',
+      image: 'https://scontent.fmnl14-1.fna.fbcdn.net/v/t39.30808-6/480185159_1150263796500216_1949581681129687712_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFq1Wrnnkdnn6FE2lAsLBvvvxf49h8G4Ny_F_j2Hwbg3N3qEaVv4d82gh7cVzDvZm1of55A2Ku96vgT6l86c8hx&_nc_ohc=aTy-vif7kX0Q7kNvgFIpHAI&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=A6cWuPgJSjTyuQpx7SHpPUR&oh=00_AYACvHxQ9WxJ_IvZpuQOhFjvDEmN6LjQjnUhzILEUvUmlg&oe=67C59672'
+    },
+    {
+      id: 2,
+      title: 'Post 2',
+      description: 'Black<3',
+      image: 'https://scontent.fmnl14-1.fna.fbcdn.net/v/t39.30808-6/480291595_1147326283460634_6793287484516844899_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGBoCGbTpNNpYRsTKyFb7mCdMOBIFhF7eF0w4EgWEXt4cgwFn2A6P1FTC-RNKXQUsrKQ4A3WYMKbzRLSvhKaTR4&_nc_ohc=AvOQ9yXHsBcQ7kNvgEO6_jW&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=A0UGNK839gdFBFEVviW2_1Q&oh=00_AYDgHK3CPu5-rSbnxiK8-LF_0I7PW6rfNxbBfF16ceXCEQ&oe=67C5BEBD'
+    },
+    {
+      id: 3,
+      title: 'Post 3',
+      description: 'kamodelon',
+      image: 'https://scontent.fmnl14-1.fna.fbcdn.net/v/t39.30808-6/475977458_1140612497465346_7789292533380226665_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeHA6iNL6vIO02taMs8GcXJzrZnVeQim3K6tmdV5CKbcrkRcSOBHyqf5tJ68gtdPl1Y4U3YuvSzFLm5iOZKDk9Cz&_nc_ohc=CXB68Inw_SsQ7kNvgHrTwgJ&_nc_zt=23&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=AnTksr4lI3jOGfTy4H-s_Vu&oh=00_AYCp-uwZFW0gqwdTgfaG5FhJ23hTI2THQZa7VcJqpbU8hg&oe=67C59E9B'
+    }
+  ];
+
   return (
     <IonPage>
       <IonHeader>
@@ -40,19 +44,23 @@ const Feed: React.FC = () => {
           <IonButtons slot='start'>
             <IonMenuButton></IonMenuButton>
           </IonButtons>
-          <IonTitle>SDG Goals</IonTitle>
+          <IonTitle>Feed</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {sdgs.map((sdg) => (
-          <IonCard key={sdg.id} className="ion-margin-bottom">
-            <img alt={sdg.title} src={sdg.img} />
-            <IonCardHeader>
-              <IonCardTitle>{sdg.title}</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>{sdg.desc}</IonCardContent>
-          </IonCard>
-        ))}
+        <IonList>
+          {feedItems.map(item => (
+            <IonItem key={item.id}>
+              <IonThumbnail slot="start">
+                <IonImg src={item.image} />
+              </IonThumbnail>
+              <IonLabel>
+                <h2>{item.title}</h2>
+                <p>{item.description}</p>
+              </IonLabel>
+            </IonItem>
+          ))}
+        </IonList>
       </IonContent>
     </IonPage>
   );
