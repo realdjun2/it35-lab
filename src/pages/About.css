@@ -1,0 +1,175 @@
+.about-content {
+  --background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
+}
+
+.background-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 15% 50%, rgba(33, 150, 243, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(156, 39, 176, 0.1) 0%, transparent 50%);
+  animation: backgroundPulse 15s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes backgroundPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.profile-card, .skills-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover, .skills-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.profile-header {
+  width: 100%;
+  max-width: 600px;
+}
+
+.profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 15px;
+  object-fit: cover;
+  margin-bottom: 25px;
+  border: 3px solid #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.profile-container h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.profile-container .title {
+  color: #666;
+  font-size: 20px;
+  margin: 8px 0 16px 0;
+  font-weight: 500;
+}
+
+.social-links {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.social-links ion-chip {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-links .clickable-chip {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-links .clickable-chip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(100%);
+  transition: transform 0.2s ease;
+}
+
+.social-links .clickable-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.social-links .clickable-chip:hover::before {
+  transform: translateY(0);
+}
+
+.social-links .clickable-chip:active {
+  transform: translateY(0);
+}
+
+.profile-container .bio {
+  color: #444;
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 20px auto;
+  font-size: 16px;
+}
+
+ion-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+ion-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+}
+
+ion-item:hover {
+  --background: rgba(0, 0, 0, 0.05);
+}
+
+.skill-icon {
+  font-size: 24px;
+  margin-right: 16px;
+  color: #3498db;
+}
+
+ion-item h3 {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+ion-item p {
+  color: #666;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.6;
+} 

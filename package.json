@@ -23,6 +23,7 @@
     "@ionic/react": "^8.0.0",
     "@ionic/react-router": "^8.0.0",
     "@supabase/supabase-js": "^2.49.4",
+    "@types/bcryptjs": "^2.4.6",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "bcryptjs": "^3.0.2",
