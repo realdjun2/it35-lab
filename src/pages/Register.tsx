@@ -14,9 +14,11 @@ import {
     IonCardSubtitle,
     IonCardTitle,
     IonAlert,
+    IonLoading,
 } from '@ionic/react';
 import { supabase } from '../utils/supabaseClient';
 import bcrypt from 'bcryptjs';
+import { AuthResponse, User } from '@supabase/supabase-js';
 
 // Reusable Alert Component
 const AlertBox: React.FC<{ message: string; isOpen: boolean; onClose: () => void }> = ({ message, isOpen, onClose }) => {
@@ -42,6 +44,7 @@ const Register: React.FC = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [showAlert, setShowAlert] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleOpenVerificationModal = () => {
         if (!email.endsWith("@nbsc.edu.ph")) {
@@ -61,43 +64,98 @@ const Register: React.FC = () => {
 
     const doRegister = async () => {
         setShowVerificationModal(false);
+        setIsLoading(true);
     
         try {
-            // Sign up in Supabase authentication
-            const { data, error } = await supabase.auth.signUp({ email, password });
-    
-            if (error) {
-                throw new Error("Account creation failed: " + error.message);
+            // Check network connectivity
+            if (!navigator.onLine) {
+                throw new Error("No internet connection. Please check your network and try again.");
+            }
+
+            // Basic validation
+            if (!email || !password || !username || !firstName || !lastName) {
+                throw new Error("All fields are required.");
+            }
+
+            // Email validation
+            if (!email.endsWith("@nbsc.edu.ph")) {
+                throw new Error("Only @nbsc.edu.ph email addresses are allowed.");
             }
     
+            // Sign up in Supabase authentication
+            const { data: { user }, error: signUpError } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    emailRedirectTo: window.location.origin,
+                    data: {
+                        username,
+                        first_name: firstName,
+                        last_name: lastName
+                    }
+                }
+            });
+
+            if (signUpError) {
+                console.error('Signup error:', signUpError);
+                throw signUpError;
+            }
+            
+            if (!user) {
+                throw new Error("Failed to create user account.");
+            }
+
             // Hash password before storing in the database
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
     
-            // Insert user data into 'users' table
-            const { error: insertError } = await supabase.from("users").insert([
-                {
+            // Insert user data into 'users' table with UUID
+            const { error: insertError } = await supabase
+                .from("users")
+                .insert({
                     username,
                     user_email: email,
                     user_firstname: firstName,
                     user_lastname: lastName,
                     user_password: hashedPassword,
-                },
-            ]);
+                    auth_user_id: user.id
+                });
     
             if (insertError) {
-                throw new Error("Failed to save user data: " + insertError.message);
+                console.error('Insert error:', insertError);
+                // If user data insertion fails, clean up the auth user
+                try {
+                    await supabase.auth.admin.deleteUser(user.id);
+                } catch (cleanupError) {
+                    console.error('Failed to cleanup auth user:', cleanupError);
+                }
+                throw new Error("Failed to save user data. Please try again.");
             }
     
             setShowSuccessModal(true);
         } catch (err) {
-            // Ensure err is treated as an Error instance
+            console.error('Registration error:', err);
             if (err instanceof Error) {
-                setAlertMessage(err.message);
+                const errorMessage = err.message.toLowerCase();
+                if (errorMessage.includes('invalid api key')) {
+                    setAlertMessage("Authentication error. Please check your configuration.");
+                } else if (errorMessage.includes('failed to fetch') || 
+                    errorMessage.includes('network error') ||
+                    errorMessage.includes('name not resolved')) {
+                    setAlertMessage("Unable to connect to the server. Please check your internet connection and try again.");
+                } else if (errorMessage.includes('already registered')) {
+                    setAlertMessage("This email is already registered. Please try logging in instead.");
+                } else if (errorMessage.includes('invalid email')) {
+                    setAlertMessage("Please enter a valid @nbsc.edu.ph email address.");
+                } else {
+                    setAlertMessage(err.message);
+                }
             } else {
-                setAlertMessage("An unknown error occurred.");
+                setAlertMessage("An unexpected error occurred. Please try again later.");
             }
             setShowAlert(true);
+        } finally {
+            setIsLoading(false);
         }
     };
     
@@ -165,6 +223,13 @@ const Register: React.FC = () => {
 
                 {/* Reusable AlertBox Component */}
                 <AlertBox message={alertMessage} isOpen={showAlert} onClose={() => setShowAlert(false)} />
+
+                {/* Add Loading Overlay */}
+                <IonLoading
+                    isOpen={isLoading}
+                    message="Creating your account..."
+                    spinner="crescent"
+                />
 
             </IonContent>
         </IonPage>
