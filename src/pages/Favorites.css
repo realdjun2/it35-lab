@@ -1,0 +1,99 @@
+.favorites-content {
+  --background: #1e1e1e;
+}
+
+ion-toolbar {
+  --background: #1e1e1e;
+  --color: white;
+}
+
+.favorite-card {
+  background: #2d2d2d;
+  margin: 0 0 16px 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.food-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.upload-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-overlay:hover {
+  opacity: 1;
+}
+
+.upload-overlay ion-icon {
+  font-size: 32px;
+  color: white;
+}
+
+ion-card-content {
+  padding: 16px;
+}
+
+ion-card-content h2 {
+  color: white;
+  font-size: 24px;
+  margin: 0 0 8px 0;
+  font-weight: normal;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+ion-card-content p {
+  color: #a0a0a0;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Ensure images load smoothly */
+.food-image {
+  transition: opacity 0.3s ease;
+}
+
+.food-image.loading {
+  opacity: 0.5;
+}
+
+/* Add subtle hover effect */
+.favorite-card {
+  transition: transform 0.2s ease;
+}
+
+.favorite-card:active {
+  transform: scale(0.98);
+}
+
+/* Toast customization */
+ion-toast {
+  --background: var(--ion-color-dark);
+  --color: white;
+  --border-radius: 8px;
+  --button-color: var(--ion-color-primary);
+} 
