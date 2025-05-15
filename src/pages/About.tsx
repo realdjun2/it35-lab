@@ -1,22 +1,31 @@
-import { 
-    IonButtons,
-    IonContent, 
-    IonHeader, 
-    IonMenuButton, 
-    IonPage, 
-    IonTitle, 
-    IonToolbar,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
-    IonItem,
-    IonLabel,
-    IonList,
-    IonIcon,
-    IonChip
+import {
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonMenuButton,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonIcon,
+  IonChip
 } from '@ionic/react';
-import { logoGithub, logoLinkedin, mailOutline, codeSlash, serverOutline, phonePortraitOutline } from 'ionicons/icons';
+
+import {
+  logoGithub,
+  logoLinkedin,
+  mailOutline,
+  codeSlash,
+  serverOutline,
+  phonePortraitOutline
+} from 'ionicons/icons';
+
 import './About.css';
 
 const About: React.FC = () => {
@@ -28,21 +37,23 @@ const About: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot='start'>
-            <IonMenuButton></IonMenuButton>
+          <IonButtons slot="start">
+            <IonMenuButton />
           </IonButtons>
           <IonTitle>About</IonTitle>
         </IonToolbar>
       </IonHeader>
+
       <IonContent fullscreen className="ion-padding about-content">
         <div className="background-animation"></div>
+
         <IonCard className="profile-card">
           <IonCardContent>
             <div className="profile-container">
               <div className="profile-header">
-                <img 
-                  src="https://avatars.githubusercontent.com/u/realdjun2" 
-                  alt="Realdjun Odon" 
+                <img
+                  src="/profile.jpg"
+                  alt="Realdjun Odon"
                   className="profile-image"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -51,7 +62,7 @@ const About: React.FC = () => {
                 />
                 <h2>Realdjun Odon</h2>
                 <p className="title">Full Stack Developer</p>
-                
+
                 <div className="social-links">
                   <IonChip color="primary" onClick={openGitHub} className="clickable-chip" title="Visit my GitHub profile">
                     <IonIcon icon={logoGithub} />
@@ -68,9 +79,9 @@ const About: React.FC = () => {
                 </div>
 
                 <p className="bio">
-                  Innovative Full Stack Developer with a passion for creating seamless, 
-                  user-centric applications. Specialized in modern web technologies and 
-                  cross-platform development using Ionic Framework and React. 
+                  Innovative Full Stack Developer with a passion for creating seamless,
+                  user-centric applications. Specialized in modern web technologies and
+                  cross-platform development using Ionic Framework and React.
                   Committed to delivering high-quality, scalable solutions that drive business success.
                 </p>
               </div>

@@ -17,44 +17,54 @@ const Favorites: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot='start'>
-            <IonMenuButton></IonMenuButton>
+          <IonButtons slot="start">
+            <IonMenuButton />
           </IonButtons>
           <IonTitle>Favorites</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+
         <IonCard>
-          <img alt="Pizza" src="https://source.unsplash.com/400x300/?pizza" />
+          <img alt="Ionic Framework" src="https://source.unsplash.com/400x300/?ionic,app" />
           <IonCardHeader>
-            <IonCardTitle>Pizza</IonCardTitle>
+            <IonCardTitle>Ionic Framework</IonCardTitle>
           </IonCardHeader>
-          <IonCardContent>Delicious cheesy pizza with various toppings.</IonCardContent>
+          <IonCardContent>
+            Build fast, beautiful mobile and web apps with one codebase using Ionic and web technologies.
+          </IonCardContent>
         </IonCard>
 
         <IonCard>
-          <img alt="Sushi" src="https://source.unsplash.com/400x300/?sushi" />
+          <img alt="Supabase" src="https://source.unsplash.com/400x300/?database,cloud" />
           <IonCardHeader>
-            <IonCardTitle>Sushi</IonCardTitle>
+            <IonCardTitle>Supabase</IonCardTitle>
           </IonCardHeader>
-          <IonCardContent>Fresh and tasty sushi rolls with soy sauce.</IonCardContent>
+          <IonCardContent>
+            An open-source Firebase alternative providing real-time databases, authentication, and storage.
+          </IonCardContent>
         </IonCard>
 
         <IonCard>
-          <img alt="Burger" src="https://source.unsplash.com/400x300/?burger" />
+          <img alt="UI Design" src="https://source.unsplash.com/400x300/?ui,design" />
           <IonCardHeader>
-            <IonCardTitle>Burger</IonCardTitle>
+            <IonCardTitle>UI Design</IonCardTitle>
           </IonCardHeader>
-          <IonCardContent>Juicy beef burger with lettuce, tomato, and cheese.</IonCardContent>
+          <IonCardContent>
+            Crafting intuitive and appealing interfaces that enhance user experience and usability.
+          </IonCardContent>
         </IonCard>
 
         <IonCard>
-          <img alt="Pasta" src="https://source.unsplash.com/400x300/?pasta" />
+          <img alt="UX Strategy" src="https://source.unsplash.com/400x300/?ux,user-experience" />
           <IonCardHeader>
-            <IonCardTitle>Pasta</IonCardTitle>
+            <IonCardTitle>UX Strategy</IonCardTitle>
           </IonCardHeader>
-          <IonCardContent>Creamy and flavorful pasta dishes.</IonCardContent>
+          <IonCardContent>
+            Aligning user needs with business goals to create meaningful and effective user journeys.
+          </IonCardContent>
         </IonCard>
+
       </IonContent>
     </IonPage>
   );
