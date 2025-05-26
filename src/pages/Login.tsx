@@ -8,13 +8,12 @@ import {
   IonInputPasswordToggle,  
   IonPage,  
   IonToast,  
-  useIonRouter,
-  IonCheckbox,
-  IonLabel
+  useIonRouter
 } from '@ionic/react';
 import { logoIonic } from 'ionicons/icons';
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { supabase } from '../utils/supabaseClient';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const AlertBox: React.FC<{ message: string; isOpen: boolean; onClose: () => void }> = ({ message, isOpen, onClose }) => {
   return (
@@ -35,11 +34,13 @@ const Login: React.FC = () => {
   const [alertMessage, setAlertMessage] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const [isRobotChecked, setIsRobotChecked] = useState(false); // State for "I'm not a robot"
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+
+  const siteKey = '6Lc45kkrAAAAAJXzcs1C75m1E8xrmzzNRjwfpy0T'; // <-- Your real site key
 
   const doLogin = async () => {
-    if (!isRobotChecked) {
-      setAlertMessage("Please confirm you're not a robot.");
+    if (!recaptchaToken) {
+      setAlertMessage("Please complete the reCAPTCHA.");
       setShowAlert(true);
       return;
     }
@@ -73,6 +74,7 @@ const Login: React.FC = () => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>USER LOGIN</h1>
+
           <IonInput
             label="Email" 
             labelPlacement="floating" 
@@ -82,6 +84,7 @@ const Login: React.FC = () => {
             value={email}
             onIonChange={e => setEmail(e.detail.value!)}
           />
+          
           <IonInput style={{ marginTop: '10px' }}      
             fill="outline"
             type="password"
@@ -92,15 +95,15 @@ const Login: React.FC = () => {
             <IonInputPasswordToggle slot="end"></IonInputPasswordToggle>
           </IonInput>
 
-          {/* "I'm not a robot" checkbox */}
-          <div style={{ marginTop: '15px', display: 'flex', alignItems: 'center' }}>
-            <IonCheckbox 
-              checked={isRobotChecked} 
-              onIonChange={e => setIsRobotChecked(e.detail.checked)} 
+          {/* Google reCAPTCHA */}
+          <div style={{ marginTop: '15px' }}>
+            <ReCAPTCHA
+              sitekey={siteKey}
+              onChange={(token: SetStateAction<string | null>) => setRecaptchaToken(token)}
             />
-            <IonLabel style={{ marginLeft: '8px' }}>I'm not a robot</IonLabel>
           </div>
         </div>
+
         <IonButton onClick={doLogin} expand="full" shape='round'>
           Login
         </IonButton>
@@ -109,10 +112,10 @@ const Login: React.FC = () => {
           Don't have an account? Register here
         </IonButton>
 
-        {/* Reusable AlertBox Component */}
+        {/* Alert */}
         <AlertBox message={alertMessage} isOpen={showAlert} onClose={() => setShowAlert(false)} />
 
-        {/* IonToast for success message */}
+        {/* Success Toast */}
         <IonToast
           isOpen={showToast}
           onDidDismiss={() => setShowToast(false)}
