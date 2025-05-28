@@ -36,8 +36,13 @@ const Login: React.FC = () => {
   const [showToast, setShowToast] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
+  // OTP state
+  const [step, setStep] = useState<'login' | 'otp'>('login');
+  const [otp, setOtp] = useState('');
+
   const siteKey = '6Lc45kkrAAAAAJXzcs1C75m1E8xrmzzNRjwfpy0T'; // <-- Your real site key
 
+  // 1. Login step: check credentials, then request OTP
   const doLogin = async () => {
     if (!recaptchaToken) {
       setAlertMessage("Please complete the reCAPTCHA.");
@@ -53,7 +58,28 @@ const Login: React.FC = () => {
       return;
     }
 
-    setShowToast(true); 
+    // Call your Supabase function to generate/send OTP
+    const { error: otpError } = await supabase.rpc('generate_and_send_otp', { email_input: email });
+    if (otpError) {
+      setAlertMessage(otpError.message);
+      setShowAlert(true);
+      return;
+    }
+
+    setStep('otp');
+    setAlertMessage('OTP sent to your email.');
+    setShowAlert(true);
+  };
+
+  // 2. OTP step: verify OTP
+  const verifyOtp = async () => {
+    const { data, error } = await supabase.rpc('verify_otp', { email_input: email, otp_input: otp });
+    if (error || !data?.success) {
+      setAlertMessage(error?.message || 'Invalid OTP');
+      setShowAlert(true);
+      return;
+    }
+    setShowToast(true);
     setTimeout(() => {
       navigation.push('/it35-lab/app', 'forward', 'replace');
     }, 300);
@@ -62,55 +88,82 @@ const Login: React.FC = () => {
   return (
     <IonPage>
       <IonContent className='ion-padding'>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: '25%'
-        }}>
-          <h1 style={{
+        {step === 'login' ? (
+          <div style={{
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-          }}>USER LOGIN</h1>
+            marginTop: '25%'
+          }}>
+            <h1 style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>USER LOGIN</h1>
 
-          <IonInput
-            label="Email" 
-            labelPlacement="floating" 
-            fill="outline"
-            type="email"
-            placeholder="Enter Email"
-            value={email}
-            onIonChange={e => setEmail(e.detail.value!)}
-          />
-          
-          <IonInput style={{ marginTop: '10px' }}      
-            fill="outline"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onIonChange={e => setPassword(e.detail.value!)}
-          >
-            <IonInputPasswordToggle slot="end"></IonInputPasswordToggle>
-          </IonInput>
-
-          {/* Google reCAPTCHA */}
-          <div style={{ marginTop: '15px' }}>
-            <ReCAPTCHA
-              sitekey={siteKey}
-              onChange={(token: SetStateAction<string | null>) => setRecaptchaToken(token)}
+            <IonInput
+              label="Email" 
+              labelPlacement="floating" 
+              fill="outline"
+              type="email"
+              placeholder="Enter Email"
+              value={email}
+              onIonChange={e => setEmail(e.detail.value!)}
             />
+            
+            <IonInput style={{ marginTop: '10px' }}      
+              fill="outline"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onIonChange={e => setPassword(e.detail.value!)}
+            >
+              <IonInputPasswordToggle slot="end"></IonInputPasswordToggle>
+            </IonInput>
+
+            {/* Google reCAPTCHA */}
+            <div style={{ marginTop: '15px' }}>
+              <ReCAPTCHA
+                sitekey={siteKey}
+                onChange={(token: SetStateAction<string | null>) => setRecaptchaToken(token)}
+              />
+            </div>
+
+            <IonButton onClick={doLogin} expand="full" shape='round'>
+              Login
+            </IonButton>
+
+            <IonButton routerLink="/it35-lab/register" expand="full" fill="clear" shape='round'>
+              Don't have an account? Register here
+            </IonButton>
           </div>
-        </div>
-
-        <IonButton onClick={doLogin} expand="full" shape='round'>
-          Login
-        </IonButton>
-
-        <IonButton routerLink="/it35-lab/register" expand="full" fill="clear" shape='round'>
-          Don't have an account? Register here
-        </IonButton>
+        ) : (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '25%'
+          }}>
+            <h2>Enter OTP</h2>
+            <IonInput
+              label="OTP"
+              labelPlacement="floating"
+              fill="outline"
+              type="text"
+              placeholder="Enter OTP"
+              value={otp}
+              onIonChange={e => setOtp(e.detail.value!)}
+            />
+            <IonButton onClick={verifyOtp} expand="full" shape='round' style={{ marginTop: '10px' }}>
+              Verify OTP
+            </IonButton>
+            <IonButton onClick={doLogin} expand="full" fill="clear" shape='round' style={{ marginTop: '10px' }}>
+              Resend OTP
+            </IonButton>
+          </div>
+        )}
 
         {/* Alert */}
         <AlertBox message={alertMessage} isOpen={showAlert} onClose={() => setShowAlert(false)} />
